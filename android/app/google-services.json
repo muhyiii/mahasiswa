@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "902434575138",
+    "project_id": "mahasiswa-fea81",
+    "storage_bucket": "mahasiswa-fea81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902434575138:android:9b5d447efc812da07acb7b",
+        "android_client_info": {
+          "package_name": "com.example.mahasiswa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902434575138-7uqcf4s9k5ef1b89jvm6vsnluqtra0l4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mahasiswa",
+            "certificate_hash": "0ec39fb42060680273ad42c391b61fe2fde02419"
+          }
+        },
+        {
+          "client_id": "902434575138-55rdg88cp74hu8k3qr7jd8qmp8j765ap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn6qvYstVEEyf4OsSShyjA52d_yDldqf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902434575138-55rdg88cp74hu8k3qr7jd8qmp8j765ap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
