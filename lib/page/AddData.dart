@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _AddDataState extends State<AddData> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Product'),
+        title: const Text('Add Data Mahasiswa',style: TextStyle(fontSize: 25,fontFamily: 'fredoka'),),
       ),
       body: Container(
         padding: const EdgeInsets.all(8),

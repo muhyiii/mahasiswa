@@ -11,6 +11,7 @@ import 'package:mahasiswa/services/firebase_services.dart';
 import 'package:mahasiswa/user/CardProfile.dart';
 import 'package:mahasiswa/user/FITUR/Search.dart';
 import 'package:mahasiswa/user/Fitur.dart';
+import 'package:mahasiswa/user/getAll.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -31,9 +32,25 @@ class _UserPageState extends State<UserPage> {
         foregroundColor: Colors.grey,
         centerTitle: true,
         title: !isSearching
-            ? Text(
-                DateFormat.yMMMMd().format(DateTime.now()).toString(),
-                style: const TextStyle(color: Colors.grey, fontSize: 20),
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Flexible(
+                      child: Text(
+                    "UniveApp",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontFamily: 'fredoka',
+                        fontWeight: FontWeight.w600),
+                  )),
+                  Flexible(
+                    child: Text(
+                      DateFormat.yMMMMd().format(DateTime.now()).toString(),
+                      style: const TextStyle(color: Colors.grey, fontSize: 20),
+                    ),
+                  )
+                ],
               )
             : Container(
                 padding: const EdgeInsets.all(8.0),
@@ -113,7 +130,12 @@ class _UserPageState extends State<UserPage> {
                           fontFamily: 'roboto_slab',
                           fontSize: 30)),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Mahasiswa()));
+                      },
                       child: const Text('Lihat Semua',
                           style: TextStyle(
                             color: Colors.blueGrey,
@@ -122,7 +144,7 @@ class _UserPageState extends State<UserPage> {
                           )))
                 ],
               ),
-              SizedBox(height: tinggi, child: CardProfile())
+              SizedBox(height: tinggi * 0.7, child: CardProfile())
             ],
           ),
         ),

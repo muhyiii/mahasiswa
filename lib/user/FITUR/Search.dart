@@ -1,32 +1,32 @@
 // ignore_for_file: file_names, use_key_in_widget_constructors, avoid_print, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, unused_import, sized_box_for_whitespace
 
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mahasiswa/services/firebase_services.dart';
+import "package:collection/collection.dart";
 
 class Search extends StatefulWidget {
   final String keyword;
-  const Search({required this.keyword});
+  Search({required this.keyword});
   @override
   State<Search> createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
   Future<QuerySnapshot<Object?>> search() async {
-    Future<QuerySnapshot<Map<String, dynamic>>> data = FirebaseFirestore
-        .instance
-        .collection('mahasiswa')
-        .where('nama',
-            isGreaterThanOrEqualTo: widget.keyword
-                .toUpperCase()
-                .contains(widget.keyword.toLowerCase()))
-        // .where('nama', isLessThanOrEqualTo: widget.keyword)
-        // .where('ipk', isGreaterThanOrEqualTo: widget.keyword)
-        // .where('ipk', isLessThanOrEqualTo: widget.keyword)
-        .get();
+    Future<QuerySnapshot<Map<String, dynamic>>> data =
+        FirebaseFirestore.instance
+            .collection('mahasiswa')
+            .where('nama', isEqualTo: widget.keyword.toString())
+            .where('nim', isEqualTo: widget.keyword.toString())
+            //         .toUpperCase()
+            //         .contains(widget.keyword.toLowerCase()))
+            // .where('nama', isLessThanOrEqualTo: widget.keyword)
+            // .where('nama', is: widget.keyword)
+            // .where('ipk', isLessThanOrEqualTo: widget.keyword)
+            .get();
+    // var filter = listAllData.where((element) => false);
 
     return await data;
   }
@@ -66,6 +66,29 @@ class _SearchState extends State<Search> {
                       print(snapshot.connectionState);
                       if (snapshot.connectionState == ConnectionState.done) {
                         var listAllData = snapshot.data!.docs;
+
+                        // var filter = listAllData.where((element) => false);
+                        // var dataa = listAllData
+                        //     .groupListsBy((element) => element['nama'])
+                        //     .values
+                        //     .first;
+
+                        //                 udah = udahRest
+                        // .where((element) =>
+                        //     element.name
+                        //         .toLowerCase()
+                        //         .contains(widget.keyword.toLowerCase()) ||
+                        //     element.brand
+                        //         .toLowerCase()
+                        //         .contains(widget.keyword.toLowerCase()))
+                        // .toList();
+                        // var dataa = listAllData
+                        //     .where((element) => element['nama'])
+                        //     .toList();
+                        // print('adsadddddddd');
+                        // print(dataa);
+
+                        // print(dataa);
                         return ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: listAllData.length,

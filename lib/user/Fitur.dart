@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mahasiswa/user/FITUR/ByIPK.dart';
 import 'package:mahasiswa/user/FITUR/Fakultas.dart';
+import 'package:mahasiswa/user/FITUR/Jurusan.dart';
+import 'package:mahasiswa/user/FITUR/Kelas.dart';
 
 class Fitur extends StatelessWidget {
   @override
@@ -149,125 +151,137 @@ class Fitur extends StatelessWidget {
                       ),
                     ])),
           ),
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.center,
-              height: tinggi * 0.15,
-              width: lebar * 0.4,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.greenAccent.shade100,
-                        Colors.green.shade400
-                      ]),
-                  // ignore: prefer_const_literals_to_create_immutables
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Colors.green,
-                      offset: Offset(
-                        0.0,
-                        4.75,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Jurusan()));
+            },
+            child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                height: tinggi * 0.15,
+                width: lebar * 0.4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.greenAccent.shade100,
+                          Colors.green.shade400
+                        ]),
+                    // ignore: prefer_const_literals_to_create_immutables
+                    boxShadow: [
+                      const BoxShadow(
+                        color: Colors.green,
+                        offset: Offset(
+                          0.0,
+                          4.75,
+                        ),
+                        blurRadius: 4.0,
                       ),
-                      blurRadius: 4.0,
-                    ),
-                  ]),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 95),
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(4)),
-                      child: const Text('Urutkan',
-                          style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.green,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'fredoka')),
-                    ),
-                    Container(
-                      transform: Matrix4.identity()..rotateZ(-20 * 1 / 180),
-                      child: const Text(
-                        'Jurusan',
-                        // ignore: unnecessary_const
-                        style: const TextStyle(
-                            fontSize: 42,
+                    ]),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 95),
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
                             color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'fredoka',
-                            shadows: [
-                              Shadow(
-                                  color: Colors.black54,
-                                  offset: const Offset(3, 5),
-                                  blurRadius: 2),
-                            ]),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: const Text('Urutkan',
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.green,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'fredoka')),
                       ),
-                    ),
-                  ])),
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.center,
-              height: tinggi * 0.15,
-              width: lebar * 0.4,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Colors.redAccent.shade100, Colors.red.shade400]),
-                  // ignore: prefer_const_literals_to_create_immutables
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Colors.red,
-                      offset: Offset(
-                        0.0,
-                        4.75,
-                      ),
-                      blurRadius: 4.0,
-                    ),
-                  ]),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 95),
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(4)),
-                      child: const Text('Urutkan',
+                      Container(
+                        transform: Matrix4.identity()..rotateZ(-20 * 1 / 180),
+                        child: const Text(
+                          'Jurusan',
+                          // ignore: unnecessary_const
                           style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.red,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'fredoka')),
-                    ),
-                    Container(
-                      transform: Matrix4.identity()..rotateZ(-20 * 1 / 180),
-                      child: const Text(
-                        'Kelas',
-                        // ignore: unnecessary_const
-                        style: const TextStyle(
-                            fontSize: 42,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'fredoka',
-                            shadows: [
-                              Shadow(
-                                  color: Colors.black54,
-                                  offset: const Offset(3, 5),
-                                  blurRadius: 2),
-                            ]),
+                              fontSize: 42,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'fredoka',
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black54,
+                                    offset: const Offset(3, 5),
+                                    blurRadius: 2),
+                              ]),
+                        ),
                       ),
-                    ),
-                  ]))
+                    ])),
+          ),
+          InkWell( onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Kelas()));
+            },
+            child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                height: tinggi * 0.15,
+                width: lebar * 0.4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.redAccent.shade100, Colors.red.shade400]),
+                    // ignore: prefer_const_literals_to_create_immutables
+                    boxShadow: [
+                      const BoxShadow(
+                        color: Colors.red,
+                        offset: Offset(
+                          0.0,
+                          4.75,
+                        ),
+                        blurRadius: 4.0,
+                      ),
+                    ]),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 95),
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4)),
+                        child: const Text('Urutkan',
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.red,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'fredoka')),
+                      ),
+                      Container(
+                        transform: Matrix4.identity()..rotateZ(-20 * 1 / 180),
+                        child: const Text(
+                          'Kelas',
+                          // ignore: unnecessary_const
+                          style: const TextStyle(
+                              fontSize: 42,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'fredoka',
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black54,
+                                    offset: const Offset(3, 5),
+                                    blurRadius: 2),
+                              ]),
+                        ),
+                      ),
+                    ])),
+          )
         ]));
   }
 }

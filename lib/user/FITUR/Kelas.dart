@@ -1,13 +1,13 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, avoid_print, unnecessary_const, unused_local_variable
-import "package:collection/collection.dart";
+// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors, avoid_print, unnecessary_const, unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mahasiswa/services/firebase_services.dart';
+import "package:collection/collection.dart";
+import 'package:mahasiswa/user/ByFitur/DKelas.dart';
 
-import '../ByFitur/DFakultas.dart';
-
-class Fakultas extends StatelessWidget {
+class Kelas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
@@ -29,7 +29,7 @@ class Fakultas extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Fakultas Tersedia',
+              const Text('Kelas Tersedia',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: 'roboto_slab',
@@ -37,7 +37,7 @@ class Fakultas extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 height: tinggi,
                 width: lebar,
                 child: StreamBuilder<QuerySnapshot<Object?>>(
@@ -46,12 +46,10 @@ class Fakultas extends StatelessWidget {
                       print(snapshot.connectionState);
                       if (snapshot.connectionState == ConnectionState.active) {
                         var listAllData = snapshot.data!.docs;
-
                         var dataa = listAllData
-                            .groupListsBy((element) => element['fakultas'])
+                            .groupListsBy((element) => element['kelas'])
                             .values
                             .toList();
-                        print(dataa[0][0]["fakultas"]);
                         return ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: dataa.length,
@@ -62,15 +60,12 @@ class Fakultas extends StatelessWidget {
                               // if (data['ipk'] >= 3) {}
 
                               return InkWell(
-                                onTap: (() {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DFakultas(
-                                                dataFakultas: dataa[index][0]
-                                                    ['fakultas'],
-                                              )));
-                                }),
+                                onTap: (() => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DKelas(
+                                            dataKelas: dataa[index][0]
+                                                ['kelas'])))),
                                 child: Container(
                                   margin: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
@@ -84,13 +79,13 @@ class Fakultas extends StatelessWidget {
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
                                           colors: [
-                                            Colors.blueAccent.shade100,
-                                            Colors.blue.shade400
+                                            Colors.redAccent.shade100,
+                                            Colors.red.shade400
                                           ]),
                                       // ignore: prefer_const_literals_to_create_immutables
                                       boxShadow: [
                                         const BoxShadow(
-                                          color: Colors.blue,
+                                          color: Colors.red,
                                           offset: Offset(
                                             2.0,
                                             6.75,
@@ -99,7 +94,7 @@ class Fakultas extends StatelessWidget {
                                         ),
                                       ]),
                                   child: Text(
-                                    dataa[index][0]['fakultas'],
+                                    dataa[index][0]['kelas'],
                                     style: const TextStyle(
                                         fontSize: 42,
                                         color: Colors.white,
@@ -116,7 +111,6 @@ class Fakultas extends StatelessWidget {
                               );
                             });
                       }
-
                       return const Center(
                         child: CircularProgressIndicator(),
                       );

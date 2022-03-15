@@ -112,7 +112,7 @@ class CardProfile extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 15, vertical: 5),
                                           decoration: BoxDecoration(
-                                              color: Colors.redAccent,
+                                              color: Colors.blueAccent,
                                               boxShadow: [
                                                 const BoxShadow(
                                                   color: Colors.black,
@@ -127,8 +127,8 @@ class CardProfile extends StatelessWidget {
                                                   begin: Alignment.topCenter,
                                                   end: Alignment.bottomCenter,
                                                   colors: [
-                                                    Colors.redAccent.shade100,
-                                                    Colors.red.shade400
+                                                    Colors.blueAccent.shade100,
+                                                    Colors.blue.shade400
                                                   ]),
                                               borderRadius:
                                                   BorderRadius.circular(10)),
@@ -163,8 +163,8 @@ class CardProfile extends StatelessWidget {
                                                   end: Alignment.bottomCenter,
                                                   colors: [
                                                     Colors
-                                                        .purpleAccent.shade100,
-                                                    Colors.purple.shade400
+                                                        .greenAccent.shade100,
+                                                    Colors.green.shade400
                                                   ]),
                                               borderRadius:
                                                   BorderRadius.circular(10)),
@@ -194,129 +194,3 @@ class CardProfile extends StatelessWidget {
     );
   }
 }
-// return Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: Container(
-//                         width: lebar * 0.3,
-//                         decoration: BoxDecoration(
-//                             borderRadius: BorderRadius.circular(8)),
-//                         child: Container(
-//                             width: lebar,
-//                             height: tinggi * 0.5,
-//                             decoration: const BoxDecoration(
-//                                 borderRadius: BorderRadius.only(
-//                                     topLeft: Radius.circular(40),
-//                                     bottomRight: Radius.circular(30)),
-//                                 gradient: LinearGradient(
-//                                   begin: Alignment.bottomCenter,
-//                                   end: Alignment.topRight,
-//                                   colors: [
-//                                     Colors.blueAccent,
-//                                     Colors.cyanAccent,
-//                                   ],
-//                                 )),
-//                             child: Column(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Expanded(
-//                                     child: Container(
-//                                         alignment: Alignment.centerLeft,
-//                                         padding: const EdgeInsets.only(
-//                                             left: 20, top: 20),
-//                                         child: Column(
-//                                           crossAxisAlignment:
-//                                               CrossAxisAlignment.start,
-//                                           children: [
-//                                             Text(
-//                                               data['nama'].toUpperCase(),
-//                                               style: const TextStyle(fontFamily: 'fredoka',
-//                                                   fontSize: 30,
-//                                                   fontWeight: FontWeight.w500),
-//                                             ),
-//                                             Text(
-//                                               data['nim'].toString(),
-//                                               style: const TextStyle(fontFamily: 'fredoka',
-//                                                   fontSize: 15,
-//                                                   fontWeight: FontWeight.w500,
-//                                                   color: Colors.white60),
-//                                             ),
-//                                           ],
-//                                         ))),
-//                                 Expanded(
-//                                   flex: 2,
-//                                   child: Row(
-//                                     children: [
-//                                       Container(
-//                                         child: CircleAvatar(
-//                                           minRadius: 90,
-//                                           maxRadius: 120,
-//                                           foregroundImage:
-//                                               NetworkImage(data['foto']),
-//                                           backgroundColor: Colors.blueGrey,
-//                                         ),
-//                                       ),
-//                                       Column(
-//                                         crossAxisAlignment:
-//                                             CrossAxisAlignment.start,
-//                                         mainAxisAlignment:
-//                                             MainAxisAlignment.spaceEvenly,
-//                                         children: [
-//                                           Text(
-//                                             'Fakultas  :  ' + data['fakultas'],
-//                                             style: const TextStyle(fontFamily: 'fredoka',
-//                                                 color: Colors.grey,
-//                                                 fontWeight: FontWeight.w600,
-//                                                 fontSize: 20),
-//                                           ),
-//                                           Text(
-//                                               'Jurusan  :  ' +
-//                                                   data['jurusan'].toString(),
-//                                               style: const TextStyle(fontFamily: 'fredoka',
-//                                                   color: Colors.grey,
-//                                                   fontWeight: FontWeight.w600,
-//                                                   fontSize: 20))
-//                                         ],
-//                                       )
-//                                     ],
-//                                   ),
-//                                 ),
-//                                 Expanded(
-//                                     child: Container(
-//                                   decoration: BoxDecoration(
-//                                       borderRadius: BorderRadius.circular(20),
-//                                       color: Colors.white,
-//                                       boxShadow: [
-//                                         const BoxShadow(
-//                                           color: Colors.black26,
-//                                           offset: Offset(
-//                                             5.0,
-//                                             5.0,
-//                                           ),
-//                                           blurRadius: 10.0,
-//                                           spreadRadius: 2.0,
-//                                         ), //BoxS
-//                                       ]),
-//                                   margin: const EdgeInsets.all(20),
-//                                   alignment: Alignment.center,
-//                                   width: lebar * 0.8,
-//                                   child: Row(
-//                                     mainAxisAlignment:
-//                                         MainAxisAlignment.spaceAround,
-//                                     children: [
-//                                       Text('Kelas  :  ' + data['kelas'],
-//                                           style: const TextStyle(fontFamily: 'fredoka',
-//                                               color: Colors.grey,
-//                                               fontWeight: FontWeight.w600,
-//                                               fontSize: 20)),
-//                                       Text('IPK  :  ' + data['ipk'].toString(),
-//                                           style: const TextStyle(fontFamily: 'fredoka',
-//                                               color: Colors.grey,
-//                                               fontWeight: FontWeight.w600,
-//                                               fontSize: 20))
-//                                     ],
-//                                   ),
-//                                 )),
-//                               ],
-//                             )),
-//                       ),
-//                     );

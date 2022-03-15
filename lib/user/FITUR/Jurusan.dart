@@ -1,13 +1,14 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, avoid_print, unnecessary_const, unused_local_variable
+// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors, avoid_print, unnecessary_const, unused_local_variable
+
+import 'dart:developer';
 import "package:collection/collection.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mahasiswa/services/firebase_services.dart';
+import 'package:mahasiswa/user/ByFitur/DJurusan.dart';
 
-import '../ByFitur/DFakultas.dart';
-
-class Fakultas extends StatelessWidget {
+class Jurusan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
@@ -29,7 +30,7 @@ class Fakultas extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Fakultas Tersedia',
+              const Text('Jurusan Tersedia',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: 'roboto_slab',
@@ -37,7 +38,7 @@ class Fakultas extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 height: tinggi,
                 width: lebar,
                 child: StreamBuilder<QuerySnapshot<Object?>>(
@@ -46,31 +47,37 @@ class Fakultas extends StatelessWidget {
                       print(snapshot.connectionState);
                       if (snapshot.connectionState == ConnectionState.active) {
                         var listAllData = snapshot.data!.docs;
-
+                        // var filter = listAllData.where((element) => false);
                         var dataa = listAllData
-                            .groupListsBy((element) => element['fakultas'])
+                            .groupListsBy((element) => element['jurusan'])
                             .values
                             .toList();
-                        print(dataa[0][0]["fakultas"]);
+                        print(dataa[0][0]["jurusan"]);
                         return ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: dataa.length,
                             itemBuilder: (context, index) {
+                              log(listAllData[index].data().toString());
+                              // Object coba = listAllData[index].data();
+                              // log('adasdasdasd' + coba.toString());
                               Map<String, dynamic> data = listAllData[index]
                                   .data()! as Map<String, dynamic>;
-
-                              // if (data['ipk'] >= 3) {}
+                              // var newMap =
+                              //     groupBy(data, (obj) => obj['jurusan'])
+                              //         .map((k, v) => MapEntry(
+                              //             k,
+                              //             v.map((item) {
+                              //               item.remove('jurusan');
+                              //               return item;
+                              //             }).toList()));
 
                               return InkWell(
-                                onTap: (() {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DFakultas(
-                                                dataFakultas: dataa[index][0]
-                                                    ['fakultas'],
-                                              )));
-                                }),
+                                onTap: (() => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DJurusan(
+                                            dataJurusan: dataa[index][0]
+                                                ['jurusan'])))),
                                 child: Container(
                                   margin: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
@@ -84,13 +91,13 @@ class Fakultas extends StatelessWidget {
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
                                           colors: [
-                                            Colors.blueAccent.shade100,
-                                            Colors.blue.shade400
+                                            Colors.greenAccent.shade100,
+                                            Colors.green.shade400
                                           ]),
                                       // ignore: prefer_const_literals_to_create_immutables
                                       boxShadow: [
                                         const BoxShadow(
-                                          color: Colors.blue,
+                                          color: Colors.green,
                                           offset: Offset(
                                             2.0,
                                             6.75,
@@ -99,7 +106,7 @@ class Fakultas extends StatelessWidget {
                                         ),
                                       ]),
                                   child: Text(
-                                    dataa[index][0]['fakultas'],
+                                    dataa[index][0]['jurusan'],
                                     style: const TextStyle(
                                         fontSize: 42,
                                         color: Colors.white,
@@ -116,7 +123,6 @@ class Fakultas extends StatelessWidget {
                               );
                             });
                       }
-
                       return const Center(
                         child: CircularProgressIndicator(),
                       );

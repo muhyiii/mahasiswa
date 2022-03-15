@@ -1,38 +1,23 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, use_key_in_widget_constructors, unused_local_variable, prefer_const_literals_to_create_immutables, duplicate_ignore, prefer_const_constructors, avoid_print, unrelated_type_equality_checks, unnecessary_null_comparison
+// ignore_for_file: file_names, use_key_in_widget_constructors, avoid_print, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, unused_import, override_on_non_overriding_member, prefer_const_constructors_in_immutables, annotate_overrides, prefer_const_constructors, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mahasiswa/services/firebase_services.dart';
 
-class FiturIPK extends StatefulWidget {
+class DJurusan extends StatefulWidget {
   @override
-  State<FiturIPK> createState() => _FiturIPKState();
+  final String dataJurusan;
+  DJurusan({required this.dataJurusan});
+  State<DJurusan> createState() => _DJurusanState();
 }
 
-class _FiturIPKState extends State<FiturIPK> {
-  TextEditingController minValue = TextEditingController();
-  TextEditingController maxValue = TextEditingController();
-  num min = 0;
-  num max = 4;
-  bool isDesc = true;
-  // }
-  // @override
-  // void initState() {
-  //   setState(() {
-  //     min = int.parse(minValue.text);
-  //     max = int.parse(maxValue.text);
-  //   });
-  //   super.initState();
-  // }
-
-  Future<QuerySnapshot<Object?>> byIpk() async {
+class _DJurusanState extends State<DJurusan> {
+  Future<QuerySnapshot<Object?>> dJurusan() async {
     Future<QuerySnapshot<Map<String, dynamic>>> data = FirebaseFirestore
         .instance
         .collection('mahasiswa')
-        .orderBy('ipk', descending: isDesc)
-        .where('ipk', isGreaterThanOrEqualTo: min)
-        .where('ipk', isLessThanOrEqualTo: max)
+        .where('jurusan', isEqualTo: widget.dataJurusan)
         .get();
     return await data;
   }
@@ -41,7 +26,6 @@ class _FiturIPKState extends State<FiturIPK> {
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
     double tinggi = MediaQuery.of(context).size.height;
-    final minValue2 = minValue;
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,
@@ -52,123 +36,23 @@ class _FiturIPKState extends State<FiturIPK> {
           style: const TextStyle(color: Colors.grey, fontSize: 20),
         ),
         backgroundColor: Colors.white,
-        actions: [
-          Center(
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isDesc = !isDesc;
-                  });
-                },
-                icon: Icon(
-                  isDesc ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                  size: 40,
-                  color: Colors.orange,
-                )),
-          )
-        ],
       ),
-      body: SingleChildScrollView(
-          child: Container(
+      body: Container(
+        // ignore: prefer_const_constructors
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 150,
-              width: lebar,
-              decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(bottom: Radius.circular(50)),
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.orangeAccent.shade100,
-                        Colors.orange.shade400
-                      ]),
-                  // ignore: prefer_const_literals_to_create_immutables
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Colors.orange,
-                      offset: Offset(
-                        0.0,
-                        4.75,
-                      ),
-                      blurRadius: 4.0,
-                    ),
-                  ]),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Filter Data Berdasarkan IPK',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'roboto_slab',
-                          fontSize: 30)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: TextField(
-                          controller: minValue,
-                          style: TextStyle(
-                              height: 0.75,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontFamily: 'roboto_slab'),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Min',
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == 0) {
-                                min = 0;
-                              }
-                              min = num.parse(minValue.text);
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        child: TextField(
-                          controller: maxValue,
-                          style: TextStyle(
-                              height: 0.75,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontFamily: 'roboto_slab'),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Max',
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              if(value == null){
-                                max = 4;
-                              }
-                              max = num.parse(maxValue.text);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            Text('Jurusan ' + widget.dataJurusan,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'roboto_slab',
+                    fontSize: 30)),
             SizedBox(
-              height: tinggi,
+              height: tinggi * 0.8,
+              width: lebar,
               child: FutureBuilder<QuerySnapshot<Object?>>(
-                  future: byIpk(),
+                  future: dJurusan(),
                   builder: (context, snapshot) {
                     print(snapshot.connectionState);
                     if (snapshot.connectionState == ConnectionState.done) {
@@ -367,10 +251,10 @@ class _FiturIPKState extends State<FiturIPK> {
                       child: CircularProgressIndicator(),
                     );
                   }),
-            )
+            ),
           ],
         ),
-      )),
+      ),
     );
   }
 }

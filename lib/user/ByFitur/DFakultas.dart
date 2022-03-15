@@ -1,38 +1,23 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, use_key_in_widget_constructors, unused_local_variable, prefer_const_literals_to_create_immutables, duplicate_ignore, prefer_const_constructors, avoid_print, unrelated_type_equality_checks, unnecessary_null_comparison
+// ignore_for_file: file_names, use_key_in_widget_constructors, avoid_print, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, unused_import, override_on_non_overriding_member, annotate_overrides, prefer_const_constructors, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mahasiswa/services/firebase_services.dart';
 
-class FiturIPK extends StatefulWidget {
+class DFakultas extends StatefulWidget {
   @override
-  State<FiturIPK> createState() => _FiturIPKState();
+  final String dataFakultas;
+  const DFakultas({required this.dataFakultas});
+  State<DFakultas> createState() => _DFakultasState();
 }
 
-class _FiturIPKState extends State<FiturIPK> {
-  TextEditingController minValue = TextEditingController();
-  TextEditingController maxValue = TextEditingController();
-  num min = 0;
-  num max = 4;
-  bool isDesc = true;
-  // }
-  // @override
-  // void initState() {
-  //   setState(() {
-  //     min = int.parse(minValue.text);
-  //     max = int.parse(maxValue.text);
-  //   });
-  //   super.initState();
-  // }
-
-  Future<QuerySnapshot<Object?>> byIpk() async {
+class _DFakultasState extends State<DFakultas> {
+  Future<QuerySnapshot<Object?>> dFakultas() async {
     Future<QuerySnapshot<Map<String, dynamic>>> data = FirebaseFirestore
         .instance
         .collection('mahasiswa')
-        .orderBy('ipk', descending: isDesc)
-        .where('ipk', isGreaterThanOrEqualTo: min)
-        .where('ipk', isLessThanOrEqualTo: max)
+        .where('fakultas', isEqualTo: widget.dataFakultas)
         .get();
     return await data;
   }
@@ -41,7 +26,6 @@ class _FiturIPKState extends State<FiturIPK> {
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
     double tinggi = MediaQuery.of(context).size.height;
-    final minValue2 = minValue;
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,
@@ -52,123 +36,22 @@ class _FiturIPKState extends State<FiturIPK> {
           style: const TextStyle(color: Colors.grey, fontSize: 20),
         ),
         backgroundColor: Colors.white,
-        actions: [
-          Center(
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isDesc = !isDesc;
-                  });
-                },
-                icon: Icon(
-                  isDesc ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                  size: 40,
-                  color: Colors.orange,
-                )),
-          )
-        ],
       ),
-      body: SingleChildScrollView(
-          child: Container(
+      // ignore: prefer_const_constructors
+      body: Container(padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 150,
-              width: lebar,
-              decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(bottom: Radius.circular(50)),
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.orangeAccent.shade100,
-                        Colors.orange.shade400
-                      ]),
-                  // ignore: prefer_const_literals_to_create_immutables
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Colors.orange,
-                      offset: Offset(
-                        0.0,
-                        4.75,
-                      ),
-                      blurRadius: 4.0,
-                    ),
-                  ]),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Filter Data Berdasarkan IPK',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'roboto_slab',
-                          fontSize: 30)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: TextField(
-                          controller: minValue,
-                          style: TextStyle(
-                              height: 0.75,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontFamily: 'roboto_slab'),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Min',
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == 0) {
-                                min = 0;
-                              }
-                              min = num.parse(minValue.text);
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        child: TextField(
-                          controller: maxValue,
-                          style: TextStyle(
-                              height: 0.75,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontFamily: 'roboto_slab'),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Max',
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              if(value == null){
-                                max = 4;
-                              }
-                              max = num.parse(maxValue.text);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            Text('Fakultas ' + widget.dataFakultas,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'roboto_slab',
+                    fontSize: 30)),
             SizedBox(
-              height: tinggi,
+              width: lebar,
+              height: tinggi * 0.8,
               child: FutureBuilder<QuerySnapshot<Object?>>(
-                  future: byIpk(),
+                  future: dFakultas(),
                   builder: (context, snapshot) {
                     print(snapshot.connectionState);
                     if (snapshot.connectionState == ConnectionState.done) {
@@ -177,8 +60,8 @@ class _FiturIPKState extends State<FiturIPK> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: listAllData.length,
                           itemBuilder: (context, index) {
-                            Map<String, dynamic> data = listAllData[index]
-                                .data()! as Map<String, dynamic>;
+                            Map<String, dynamic> data = listAllData[index].data()!
+                                as Map<String, dynamic>;
 
                             // if (data['ipk'] >= 3) {}
 
@@ -201,8 +84,7 @@ class _FiturIPKState extends State<FiturIPK> {
                                   ),
                                   padding: const EdgeInsets.all(12),
                                   child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       CircleAvatar(
@@ -271,10 +153,10 @@ class _FiturIPKState extends State<FiturIPK> {
                                             Row(
                                               children: [
                                                 Container(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 15,
-                                                      vertical: 5),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 15,
+                                                          vertical: 5),
                                                   decoration: BoxDecoration(
                                                       color: Colors.blueAccent,
                                                       boxShadow: [
@@ -288,8 +170,8 @@ class _FiturIPKState extends State<FiturIPK> {
                                                         ),
                                                       ],
                                                       gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .topCenter,
+                                                          begin:
+                                                              Alignment.topCenter,
                                                           end: Alignment
                                                               .bottomCenter,
                                                           colors: [
@@ -314,10 +196,10 @@ class _FiturIPKState extends State<FiturIPK> {
                                                   width: 10,
                                                 ),
                                                 Container(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 14,
-                                                      vertical: 5),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 14,
+                                                          vertical: 5),
                                                   decoration: BoxDecoration(
                                                       boxShadow: [
                                                         const BoxShadow(
@@ -330,15 +212,14 @@ class _FiturIPKState extends State<FiturIPK> {
                                                         ),
                                                       ],
                                                       gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .topCenter,
+                                                          begin:
+                                                              Alignment.topCenter,
                                                           end: Alignment
                                                               .bottomCenter,
                                                           colors: [
                                                             Colors.greenAccent
                                                                 .shade100,
-                                                            Colors
-                                                                .green.shade400
+                                                            Colors.green.shade400
                                                           ]),
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -367,10 +248,10 @@ class _FiturIPKState extends State<FiturIPK> {
                       child: CircularProgressIndicator(),
                     );
                   }),
-            )
+            ),
           ],
         ),
-      )),
+      ),
     );
   }
 }

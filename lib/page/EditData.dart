@@ -57,7 +57,6 @@ class _EditDataState extends State<EditData> {
 
   @override
   void initState() {
-
     dataNIM.text = widget.data['nim'].toString();
     dataNama.text = widget.data['nama'];
     dataFoto.text = widget.data['foto'];
@@ -75,7 +74,7 @@ class _EditDataState extends State<EditData> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Product'),
+        title: const Text('Edit Data Mahasiswa',style: TextStyle(fontSize: 25,fontFamily: 'fredoka'),),
       ),
       body: Container(
         padding: const EdgeInsets.all(8),
@@ -171,7 +170,7 @@ class _EditDataState extends State<EditData> {
                 style: ElevatedButton.styleFrom(
                     alignment: Alignment.center, fixedSize: Size(lebar, 45)),
                 onPressed: () {
-                  Firebase_service().addData(
+                  Firebase_service().updateData(
                       int.parse(dataNIM.text),
                       dataNama.text,
                       dataFoto.text,
@@ -179,7 +178,8 @@ class _EditDataState extends State<EditData> {
                       dataJurusan.text,
                       double.parse(dataIPK.text),
                       dataKelas.text,
-                      context);
+                      context,
+                      widget.docId);
                 },
                 child: const Text('Send'))
           ],

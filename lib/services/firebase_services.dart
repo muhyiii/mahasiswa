@@ -71,26 +71,41 @@ class Firebase_service {
     return data.snapshots();
   }
 
-  Future<QuerySnapshot<Object?>> best() async{
-    Future<QuerySnapshot<Map<String, dynamic>>> data = firestore.collection('mahasiswa').orderBy('ipk',descending: true).get();
+  Future<QuerySnapshot<Object?>> best() async {
+    Future<QuerySnapshot<Map<String, dynamic>>> data = firestore
+        .collection('mahasiswa')
+        .orderBy('ipk', descending: true)
+        .get();
     return await data;
   }
 
-  Future<QuerySnapshot<Object?>> search() async{
-    Future<QuerySnapshot<Map<String, dynamic>>> data = firestore.collection('mahasiswa').orderBy('ipk',descending: true).get();
+  Future<QuerySnapshot<Object?>> search() async {
+    Future<QuerySnapshot<Map<String, dynamic>>> data = firestore
+        .collection('mahasiswa')
+        .orderBy('ipk', descending: true)
+        .get();
     return await data;
   }
 
-  void updateData(String docId, String namaPrd, int hargaPrd, context) async {
-    DocumentReference coba = firestore.collection('Datas').doc(docId);
+  void updateData(int nim, String nama, String foto, String fakultas,
+      String jurusan, double ipk, String kelas, context,docId) async {
+    DocumentReference coba = firestore.collection('mahasiswa').doc(docId);
     int count = 0;
     try {
-      await coba.update({'nama': namaPrd, 'harga': hargaPrd});
+      await coba.update({
+        'nim': nim,
+        'nama': nama,
+        'foto': foto,
+        'fakultas': fakultas,
+        'jurusan': jurusan,
+        'ipk': ipk,
+        'kelas': kelas
+      });
       Alert(
         context: context,
         type: AlertType.success,
         title: "Berhasil",
-        desc: "Produk Berhasil Diubah Iyeyyy",
+        desc: "Data Berhasil Diupdate Iyeyyy",
         buttons: [
           DialogButton(
             child: const Text(
@@ -126,7 +141,7 @@ class Firebase_service {
   }
 
   void deleteData(String docId, context) async {
-    DocumentReference coba = firestore.collection('Datas').doc(docId);
+    DocumentReference coba = firestore.collection('mahasiswa').doc(docId);
     int count = 0;
     try {
       await coba.delete();
@@ -134,7 +149,7 @@ class Firebase_service {
         context: context,
         type: AlertType.success,
         title: "Berhasil",
-        desc: "Produk Berhasil Diubah Iyeyyy",
+        desc: "Data Berhasil Dihapus Iyeyyy",
         buttons: [
           DialogButton(
             child: const Text(
